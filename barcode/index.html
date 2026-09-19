@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Barcode Generator - Free CODE128, EAN, UPC Barcodes (PNG & SVG)</title>
+  <meta name="description" content="Generate barcodes free: CODE128, EAN-13, UPC, CODE39, ITF-14 and more. Custom colors, download PNG or vector SVG. Runs in your browser - no signup, no tracking." />
+  <link rel="canonical" href="https://qr-code-studio-dxj.pages.dev/barcode/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Barcode Generator - Free CODE128, EAN, UPC (PNG & SVG)" />
+  <meta property="og:description" content="Generate barcodes with custom colors and download PNG or vector SVG. Free & private." />
+  <meta property="og:url" content="https://qr-code-studio-dxj.pages.dev/barcode/" />
+  <meta property="og:image" content="https://qr-code-studio-dxj.pages.dev/assets/og.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Barcode Generator",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Free in-browser barcode generator (CODE128, EAN, UPC) with PNG/SVG export."
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">QR Code <strong>Studio</strong></span>
+    </a>
+    <nav class="site-nav">
+      <a href="/">QR Codes</a>
+      <a href="#faq">FAQ</a>
+      <button id="pro-badge" class="pill pill-locked" type="button">Unlock Pro</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Free barcode generator.</h1>
+      <p class="hero-sub">CODE128, EAN-13, UPC, CODE39, ITF-14 and more. Pick your colors, then export a crisp PNG or vector SVG. Runs entirely in your browser - nothing is uploaded.</p>
+    </section>
+
+    <section class="studio" aria-label="Barcode editor">
+      <div class="controls card">
+        <div class="field">
+          <label for="bc-data">Value</label>
+          <textarea id="bc-data" rows="2" placeholder="Enter text or numbers">CORTEK-2026</textarea>
+          <p class="note" id="bc-error" style="text-align:left;color:var(--err);margin-top:8px" hidden></p>
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label for="format">Barcode type</label>
+            <select id="format">
+              <option value="CODE128" selected>CODE128 (general)</option>
+              <option value="EAN13">EAN-13 (retail, 12-13 digits)</option>
+              <option value="UPC">UPC-A (retail, 11-12 digits)</option>
+              <option value="EAN8">EAN-8 (7-8 digits)</option>
+              <option value="CODE39">CODE39</option>
+              <option value="ITF14">ITF-14 (13-14 digits)</option>
+              <option value="MSI">MSI</option>
+              <option value="pharmacode">Pharmacode</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="displayValue">Show text</label>
+            <select id="displayValue">
+              <option value="yes" selected>Yes</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label for="fg">Bars color</label>
+            <input type="color" id="fg" value="#1a1a2e" />
+          </div>
+          <div class="field">
+            <label for="bg">Background</label>
+            <input type="color" id="bg" value="#ffffff" />
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label for="barWidth">Bar thickness</label>
+            <input type="range" id="barWidth" min="1" max="5" step="1" value="2" />
+          </div>
+          <div class="field">
+            <label for="height">Bar height</label>
+            <input type="range" id="height" min="40" max="200" step="5" value="100" />
+          </div>
+        </div>
+
+        <fieldset class="field pro-section" id="pro-section">
+          <legend>Pro output <span class="tag">PRO</span></legend>
+          <div class="field">
+            <label for="transparent">Transparent background</label>
+            <select id="transparent">
+              <option value="no" selected>No</option>
+              <option value="yes">Yes</option>
+            </select>
+          </div>
+          <p class="note" style="text-align:left;margin:0">SVG export and 4x high-resolution PNG are unlocked with Pro.</p>
+        </fieldset>
+      </div>
+
+      <div class="preview card">
+        <div class="qr-canvas" id="bc-canvas" style="max-width:340px;aspect-ratio:auto;padding:20px">
+          <canvas id="bc"></canvas>
+        </div>
+
+        <div class="download-row">
+          <button class="btn btn-primary" id="dl-png">Download PNG</button>
+          <button class="btn" id="dl-png-hd" data-pro="true">HD PNG <span class="tag-sm">PRO</span></button>
+          <button class="btn" id="dl-svg" data-pro="true">SVG <span class="tag-sm">PRO</span></button>
+        </div>
+        <p class="note">Free PNG is watermark-free. Pro unlocks 4x resolution, SVG and transparent backgrounds.</p>
+      </div>
+    </section>
+
+    <section id="faq" class="faq">
+      <h2>Barcode FAQ</h2>
+      <details><summary>Which barcode type should I use?</summary><p><strong>CODE128</strong> is the safe default for internal labels and general use. Use <strong>EAN-13</strong> or <strong>UPC-A</strong> for retail products, and <strong>ITF-14</strong> for shipping cartons.</p></details>
+      <details><summary>Why does EAN/UPC say invalid?</summary><p>Those formats require an exact number of digits (EAN-13 needs 12-13 digits, UPC-A needs 11-12). CODE128 accepts almost any text.</p></details>
+      <details><summary>Are the barcodes free to use commercially?</summary><p>Yes. Generate as many as you like for products, labels, and inventory.</p></details>
+      <details><summary>Need a QR code instead?</summary><p>Use the <a href="/">QR Code Studio</a> for QR codes with logos, colors and styles.</p></details>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Part of QR Code Studio. Runs entirely in your browser - no tracking, no uploads.</p>
+    <p id="support-line" hidden>Enjoying it? <a id="support-link" href="#" target="_blank" rel="noopener">Buy me a coffee</a>.</p>
+  </footer>
+
+  <div class="modal-backdrop" id="pro-modal" hidden>
+    <div class="modal card" role="dialog" aria-modal="true" aria-labelledby="pro-title">
+      <button class="modal-close" id="pro-close" aria-label="Close">&times;</button>
+      <h2 id="pro-title">QR Code Studio <span class="tag">PRO</span></h2>
+      <ul class="pro-list">
+        <li>4x high-resolution PNG</li>
+        <li>Vector <strong>SVG</strong> export</li>
+        <li>Transparent backgrounds</li>
+        <li>Everything in the QR tool too</li>
+      </ul>
+      <a class="btn btn-primary btn-block" id="buy-btn" href="#" target="_blank" rel="noopener">Get Pro - <span id="price-label">$9 once</span></a>
+      <div class="license-box">
+        <label for="license">Already bought? Enter your license key</label>
+        <div class="license-row">
+          <input type="text" id="license" placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX" />
+          <button class="btn" id="activate-btn">Activate</button>
+        </div>
+        <p class="license-msg" id="license-msg" role="status"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="/config.js"></script>
+  <script src="/analytics.js"></script>
+  <script src="/vendor/jsbarcode.js"></script>
+  <script src="/barcode/app.js"></script>
+</body>
+</html>

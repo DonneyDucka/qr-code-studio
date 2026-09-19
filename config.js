@@ -27,4 +27,7 @@ window.QRSTUDIO_CONFIG = {
 
   // One-time price shown on the paywall (display only; Gumroad is the source of truth).
   PRICE_LABEL: "$9 once",
+
+  // Optional: Cloudflare Web Analytics token (free, cookie-free). Leave "" to disable.
+  CF_ANALYTICS_TOKEN: "",
 };
