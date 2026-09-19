@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR Code Studio - Free QR Code Generator with Logo, Colors & SVG</title>
+  <meta name="description" content="Create beautiful, high-resolution QR codes free. Add your logo, custom colors, rounded styles, and download as PNG or SVG. Works fully in your browser - no signup, no tracking." />
+  <link rel="canonical" href="https://qr-code-studio.pages.dev/" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="QR Code Studio - Free QR Code Generator with Logo & Colors" />
+  <meta property="og:description" content="Design QR codes with your logo, colors and styles. Download PNG or SVG. Free, private, in-browser." />
+  <meta property="og:url" content="https://qr-code-studio.pages.dev/" />
+  <meta property="og:image" content="https://qr-code-studio.pages.dev/assets/og.svg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="QR Code Studio - Free QR Code Generator" />
+  <meta name="twitter:description" content="Design QR codes with your logo, colors and styles. Download PNG or SVG. Free & private." />
+  <meta name="twitter:image" content="https://qr-code-studio.pages.dev/assets/og.svg" />
+
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="stylesheet" href="/styles.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "QR Code Studio",
+    "applicationCategory": "DesignApplication",
+    "operatingSystem": "Any",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "Free in-browser QR code generator with logo, colors, styles, and PNG/SVG export."
+  }
+  </script>
+</head>
+<body>
+  <header class="site-header">
+    <a class="brand" href="/">
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span class="brand-name">QR Code <strong>Studio</strong></span>
+    </a>
+    <nav class="site-nav">
+      <a href="#features">Features</a>
+      <a href="#faq">FAQ</a>
+      <button id="pro-badge" class="pill pill-locked" type="button">Unlock Pro</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Make a QR code that actually looks good.</h1>
+      <p class="hero-sub">Add your logo, brand colors and rounded styles, then export a crisp PNG or vector SVG. 100% free, works entirely in your browser - nothing is uploaded.</p>
+    </section>
+
+    <section class="studio" aria-label="QR code editor">
+      <div class="controls card">
+        <div class="field">
+          <label for="qr-data">Content</label>
+          <textarea id="qr-data" rows="2" placeholder="https://your-link.com or any text">https://qr-code-studio.pages.dev</textarea>
+          <div class="quicktypes" id="quicktypes">
+            <button type="button" data-tpl="url">URL</button>
+            <button type="button" data-tpl="wifi">Wi-Fi</button>
+            <button type="button" data-tpl="email">Email</button>
+            <button type="button" data-tpl="tel">Phone</button>
+            <button type="button" data-tpl="vcard">Contact</button>
+          </div>
+        </div>
+
+        <div class="grid-2">
+          <div class="field">
+            <label for="fg">Dots color</label>
+            <input type="color" id="fg" value="#1a1a2e" />
+          </div>
+          <div class="field">
+            <label for="bg">Background</label>
+            <input type="color" id="bg" value="#ffffff" />
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="dotStyle">Dot style</label>
+          <select id="dotStyle">
+            <option value="square">Square</option>
+            <option value="rounded" selected>Rounded</option>
+            <option value="dots">Dots</option>
+            <option value="classy">Classy</option>
+            <option value="classy-rounded">Classy rounded</option>
+            <option value="extra-rounded">Extra rounded</option>
+          </select>
+        </div>
+
+        <fieldset class="field pro-section" id="pro-section">
+          <legend>Pro styling <span class="tag">PRO</span></legend>
+
+          <div class="field">
+            <label for="logo">Center logo</label>
+            <input type="file" id="logo" accept="image/*" />
+            <button type="button" id="clear-logo" class="link-btn" hidden>Remove logo</button>
+          </div>
+
+          <div class="grid-2">
+            <div class="field">
+              <label for="cornerStyle">Corner style</label>
+              <select id="cornerStyle">
+                <option value="square">Square</option>
+                <option value="extra-rounded" selected>Rounded</option>
+                <option value="dot">Dot</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="gradient">Gradient</label>
+              <select id="gradient">
+                <option value="none" selected>None</option>
+                <option value="linear">Linear</option>
+                <option value="radial">Radial</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field" id="gradient-color-wrap" hidden>
+            <label for="fg2">Gradient second color</label>
+            <input type="color" id="fg2" value="#e94560" />
+          </div>
+        </fieldset>
+      </div>
+
+      <div class="preview card">
+        <div class="qr-canvas" id="qr-canvas"></div>
+
+        <div class="size-row">
+          <label for="size">Export size</label>
+          <input type="range" id="size" min="256" max="2000" step="8" value="512" />
+          <output id="size-out">512px</output>
+        </div>
+
+        <div class="download-row">
+          <button class="btn btn-primary" id="dl-png">Download PNG</button>
+          <button class="btn" id="dl-svg" data-pro="true">Download SVG <span class="tag-sm">PRO</span></button>
+        </div>
+        <p class="note" id="preview-note">Free downloads are watermark-free. Pro unlocks logo, gradients, SVG and 2000px exports.</p>
+      </div>
+    </section>
+
+    <section id="features" class="features">
+      <h2>Everything you need to brand a QR code</h2>
+      <div class="feature-grid">
+        <div class="feature"><h3>Your logo in the center</h3><p>Drop in a PNG or SVG logo and the code stays scannable thanks to automatic error correction.</p></div>
+        <div class="feature"><h3>Brand colors & gradients</h3><p>Match your palette with solid colors or smooth linear and radial gradients.</p></div>
+        <div class="feature"><h3>Vector SVG export</h3><p>Print-ready, infinitely scalable output for posters, packaging and business cards.</p></div>
+        <div class="feature"><h3>Totally private</h3><p>Everything runs in your browser. Your links and logos never touch a server.</p></div>
+      </div>
+    </section>
+
+    <section id="faq" class="faq">
+      <h2>Frequently asked questions</h2>
+      <details><summary>Are these QR codes free to use commercially?</summary><p>Yes. The codes you generate are yours to use anywhere - print, web, packaging, signage.</p></details>
+      <details><summary>Do the QR codes expire?</summary><p>No. These are static QR codes that encode your content directly, so they never expire and don't rely on this site staying online.</p></details>
+      <details><summary>Will adding a logo break scanning?</summary><p>Not if it's reasonably sized. We use high error correction so a centered logo up to ~25% of the code stays reliably scannable. Always test before printing.</p></details>
+      <details><summary>What does Pro unlock?</summary><p>Center logos, gradients, custom corner styles, vector SVG export, and high-resolution PNG up to 2000px. It's a one-time purchase.</p></details>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Built with care. Runs entirely in your browser - no tracking, no uploads.</p>
+    <p id="support-line" hidden>Enjoying it? <a id="support-link" href="#" target="_blank" rel="noopener">Buy me a coffee</a>.</p>
+  </footer>
+
+  <!-- Pro paywall modal -->
+  <div class="modal-backdrop" id="pro-modal" hidden>
+    <div class="modal card" role="dialog" aria-modal="true" aria-labelledby="pro-title">
+      <button class="modal-close" id="pro-close" aria-label="Close">&times;</button>
+      <h2 id="pro-title">QR Code Studio <span class="tag">PRO</span></h2>
+      <ul class="pro-list">
+        <li>Center logo embedding</li>
+        <li>Gradients & custom corner styles</li>
+        <li>Vector <strong>SVG</strong> export</li>
+        <li>High-res PNG up to 2000px</li>
+      </ul>
+      <a class="btn btn-primary btn-block" id="buy-btn" href="#" target="_blank" rel="noopener">Get Pro - <span id="price-label">$9 once</span></a>
+      <div class="license-box">
+        <label for="license">Already bought? Enter your license key</label>
+        <div class="license-row">
+          <input type="text" id="license" placeholder="XXXXXXXX-XXXXXXXX-XXXXXXXX-XXXXXXXX" />
+          <button class="btn" id="activate-btn">Activate</button>
+        </div>
+        <p class="license-msg" id="license-msg" role="status"></p>
+      </div>
+    </div>
+  </div>
+
+  <script src="/config.js"></script>
+  <script src="/vendor/qr-code-styling.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
