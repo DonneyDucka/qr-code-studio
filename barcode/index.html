@@ -15,6 +15,8 @@
   <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/newsreader.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/hanken-grotesk.woff2" crossorigin />
   <link rel="stylesheet" href="/styles.css" />
 
   <script type="application/ld+json">
@@ -30,30 +32,54 @@
   </script>
 </head>
 <body>
+  <canvas id="bg-grid" aria-hidden="true"></canvas>
+
   <header class="site-header">
-    <a class="brand" href="/">
-      <span class="brand-mark" aria-hidden="true"></span>
-      <span class="brand-name">QR Code <strong>Studio</strong></span>
+    <a class="brand" href="/" aria-label="QR Code Studio home">
+      <svg viewBox="0 0 32 32" fill="none" aria-hidden="true">
+        <rect x="0.5" y="0.5" width="31" height="31" rx="7" fill="#17160f"/>
+        <rect x="5" y="5" width="8" height="8" rx="2" fill="#f4f1ea"/>
+        <rect x="7.5" y="7.5" width="3" height="3" fill="#17160f"/>
+        <rect x="19" y="5" width="8" height="8" rx="2" fill="#e5361b"/>
+        <rect x="21.5" y="7.5" width="3" height="3" fill="#17160f"/>
+        <rect x="5" y="19" width="8" height="8" rx="2" fill="#f4f1ea"/>
+        <rect x="7.5" y="21.5" width="3" height="3" fill="#17160f"/>
+        <rect x="19" y="19" width="3.5" height="3.5" fill="#f4f1ea"/>
+        <rect x="23.5" y="23.5" width="3.5" height="3.5" fill="#f4f1ea"/>
+        <rect x="19" y="23.5" width="3.5" height="3.5" fill="#e5361b"/>
+      </svg>
+      <span class="brand-name">QR&nbsp;Code&nbsp;<em>Studio</em></span>
     </a>
     <nav class="site-nav">
-      <a href="/">QR Codes</a>
+      <a href="/" class="nav-cross">QR&nbsp;Codes</a>
       <a href="#faq">FAQ</a>
-      <button id="pro-badge" class="pill pill-locked" type="button">Unlock Pro</button>
+      <button id="pro-badge" class="pill" type="button">Unlock Pro</button>
     </nav>
   </header>
 
   <main>
     <section class="hero">
-      <h1>Free barcode generator.</h1>
-      <p class="hero-sub">CODE128, EAN-13, UPC, CODE39, ITF-14 and more. Pick your colors, then export a crisp PNG or vector SVG. Runs entirely in your browser - nothing is uploaded.</p>
+      <h1>
+        <span class="reveal-word" style="--d:0s">The</span>
+        <span class="reveal-word" style="--d:.06s">humble</span>
+        <span class="reveal-word ink-accent" style="--d:.12s">barcode,</span>
+        <span class="reveal-word" style="--d:.18s">done</span>
+        <span class="reveal-word" style="--d:.24s">right.</span>
+      </h1>
+      <p class="hero-sub">CODE128, EAN-13, UPC, CODE39, ITF-14 and more. Pick your colours, then export a crisp PNG or vector SVG. <strong>Runs entirely in your browser</strong> - nothing is uploaded.</p>
     </section>
 
     <section class="studio" aria-label="Barcode editor">
-      <div class="controls card">
+      <div class="panel controls">
+        <div class="panel-head">
+          <h2>Compose</h2>
+          <span class="meta">Live preview</span>
+        </div>
+
         <div class="field">
           <label for="bc-data">Value</label>
           <textarea id="bc-data" rows="2" placeholder="Enter text or numbers">CORTEK-2026</textarea>
-          <p class="note" id="bc-error" style="text-align:left;color:var(--err);margin-top:8px" hidden></p>
+          <p class="bc-error" id="bc-error" hidden></p>
         </div>
 
         <div class="grid-2">
@@ -61,11 +87,11 @@
             <label for="format">Barcode type</label>
             <select id="format">
               <option value="CODE128" selected>CODE128 (general)</option>
-              <option value="EAN13">EAN-13 (retail, 12-13 digits)</option>
-              <option value="UPC">UPC-A (retail, 11-12 digits)</option>
-              <option value="EAN8">EAN-8 (7-8 digits)</option>
+              <option value="EAN13">EAN-13 (retail)</option>
+              <option value="UPC">UPC-A (retail)</option>
+              <option value="EAN8">EAN-8</option>
               <option value="CODE39">CODE39</option>
-              <option value="ITF14">ITF-14 (13-14 digits)</option>
+              <option value="ITF14">ITF-14</option>
               <option value="MSI">MSI</option>
               <option value="pharmacode">Pharmacode</option>
             </select>
@@ -81,8 +107,8 @@
 
         <div class="grid-2">
           <div class="field">
-            <label for="fg">Bars color</label>
-            <input type="color" id="fg" value="#1a1a2e" />
+            <label for="fg">Bars colour</label>
+            <input type="color" id="fg" value="#17160f" />
           </div>
           <div class="field">
             <label for="bg">Background</label>
@@ -114,43 +140,50 @@
         </fieldset>
       </div>
 
-      <div class="preview card">
-        <div class="qr-canvas" id="bc-canvas" style="max-width:340px;aspect-ratio:auto;padding:20px">
-          <canvas id="bc"></canvas>
+      <div class="preview">
+        <div class="qr-stage bc-stage" id="qr-stage">
+          <div class="qr-canvas bc-stage" style="aspect-ratio:auto;width:100%">
+            <canvas id="bc"></canvas>
+          </div>
         </div>
 
         <div class="download-row">
-          <button class="btn btn-primary" id="dl-png">Download PNG</button>
-          <button class="btn" id="dl-png-hd" data-pro="true">HD PNG <span class="tag-sm">PRO</span></button>
+          <button class="btn btn-primary" id="dl-png">PNG</button>
+          <button class="btn" id="dl-png-hd" data-pro="true">HD <span class="tag-sm">PRO</span></button>
           <button class="btn" id="dl-svg" data-pro="true">SVG <span class="tag-sm">PRO</span></button>
         </div>
         <p class="note">Free PNG is watermark-free. Pro unlocks 4x resolution, SVG and transparent backgrounds.</p>
       </div>
     </section>
 
-    <section id="faq" class="faq">
-      <h2>Barcode FAQ</h2>
+    <section id="faq" class="faq reveal">
+      <h2>Barcode questions.</h2>
       <details><summary>Which barcode type should I use?</summary><p><strong>CODE128</strong> is the safe default for internal labels and general use. Use <strong>EAN-13</strong> or <strong>UPC-A</strong> for retail products, and <strong>ITF-14</strong> for shipping cartons.</p></details>
       <details><summary>Why does EAN/UPC say invalid?</summary><p>Those formats require an exact number of digits (EAN-13 needs 12-13 digits, UPC-A needs 11-12). CODE128 accepts almost any text.</p></details>
       <details><summary>Are the barcodes free to use commercially?</summary><p>Yes. Generate as many as you like for products, labels, and inventory.</p></details>
-      <details><summary>Need a QR code instead?</summary><p>Use the <a href="/">QR Code Studio</a> for QR codes with logos, colors and styles.</p></details>
+      <details><summary>Need a QR code instead?</summary><p>Use the <a href="/">QR Code Studio</a> for QR codes with logos, colours and styles.</p></details>
     </section>
   </main>
 
   <footer class="site-footer">
-    <p>Part of QR Code Studio. Runs entirely in your browser - no tracking, no uploads.</p>
-    <p id="support-line" hidden>Enjoying it? <a id="support-link" href="#" target="_blank" rel="noopener">Buy me a coffee</a>.</p>
+    <p class="meta">
+      Part of QR Code Studio - generated on-device, no tracking, no uploads.<br />
+      <span id="support-line" hidden>Enjoying it? <a id="support-link" href="#" target="_blank" rel="noopener">Buy me a coffee</a>.</span>
+    </p>
   </footer>
 
   <div class="modal-backdrop" id="pro-modal" hidden>
-    <div class="modal card" role="dialog" aria-modal="true" aria-labelledby="pro-title">
-      <button class="modal-close" id="pro-close" aria-label="Close">&times;</button>
-      <h2 id="pro-title">QR Code Studio <span class="tag">PRO</span></h2>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="pro-title">
+      <button class="modal-close" id="pro-close" aria-label="Close">
+        <svg viewBox="0 0 20 20" fill="none"><path d="M5 5l10 10M15 5L5 15" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+      </button>
+      <h2 id="pro-title">Pro <span class="tag">STUDIO</span></h2>
+      <p class="price-note">One-time purchase - unlock both tools</p>
       <ul class="pro-list">
-        <li>4x high-resolution PNG</li>
-        <li>Vector <strong>SVG</strong> export</li>
-        <li>Transparent backgrounds</li>
-        <li>Everything in the QR tool too</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5L13 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>4x high-resolution PNG</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5L13 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>Vector <strong>SVG</strong> export</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5L13 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>Transparent backgrounds</li>
+        <li><svg viewBox="0 0 16 16" fill="none"><path d="M3 8.5l3.5 3.5L13 4" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>Everything in the QR tool too</li>
       </ul>
       <a class="btn btn-primary btn-block" id="buy-btn" href="#" target="_blank" rel="noopener">Get Pro - <span id="price-label">$9 once</span></a>
       <div class="license-box">
@@ -168,5 +201,6 @@
   <script src="/analytics.js"></script>
   <script src="/vendor/jsbarcode.js"></script>
   <script src="/barcode/app.js"></script>
+  <script src="/motion.js"></script>
 </body>
 </html>

@@ -1,27 +1,28 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
-  <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0f1020"/>
-      <stop offset="1" stop-color="#1c1e36"/>
-    </linearGradient>
-    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#6c5ce7"/>
-      <stop offset="1" stop-color="#e94560"/>
-    </linearGradient>
-  </defs>
-  <rect width="1200" height="630" fill="url(#bg)"/>
-  <circle cx="1050" cy="90" r="320" fill="#6c5ce7" opacity="0.18"/>
-  <circle cx="120" cy="560" r="260" fill="#e94560" opacity="0.14"/>
-  <g transform="translate(90,120)">
-    <rect width="96" height="96" rx="22" fill="url(#accent)"/>
-    <g fill="#fff">
-      <rect x="22" y="22" width="20" height="20" rx="4"/>
-      <rect x="54" y="22" width="20" height="20" rx="4"/>
-      <rect x="22" y="54" width="20" height="20" rx="4"/>
-      <rect x="56" y="56" width="12" height="12" rx="3"/>
+  <rect width="1200" height="630" fill="#f4f1ea"/>
+
+  <!-- faint module grid, subject-derived texture -->
+  <g fill="#17160f" opacity="0.05">
+    <!-- generated columns of small squares -->
+    <g>
+      <rect x="60" y="60" width="7" height="7"/><rect x="90" y="60" width="7" height="7"/><rect x="150" y="60" width="7" height="7"/>
+      <rect x="60" y="90" width="7" height="7"/><rect x="120" y="90" width="7" height="7"/><rect x="180" y="90" width="7" height="7"/>
     </g>
   </g>
-  <text x="90" y="300" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="76" font-weight="700" fill="#eef0ff">QR Code Studio</text>
-  <text x="92" y="372" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="36" fill="#a3a7c9">Beautiful QR codes with your logo, colors &amp; SVG export.</text>
-  <text x="92" y="430" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="30" fill="#6c5ce7" font-weight="600">Free &#183; Private &#183; In your browser</text>
+
+  <!-- brand mark -->
+  <g transform="translate(80,90)">
+    <rect width="76" height="76" rx="16" fill="#17160f"/>
+    <rect x="12" y="12" width="19" height="19" rx="5" fill="#f4f1ea"/><rect x="18" y="18" width="7" height="7" fill="#17160f"/>
+    <rect x="45" y="12" width="19" height="19" rx="5" fill="#e5361b"/><rect x="51" y="18" width="7" height="7" fill="#17160f"/>
+    <rect x="12" y="45" width="19" height="19" rx="5" fill="#f4f1ea"/><rect x="18" y="51" width="7" height="7" fill="#17160f"/>
+    <rect x="45" y="45" width="8" height="8" fill="#f4f1ea"/><rect x="56" y="56" width="8" height="8" fill="#e5361b"/>
+  </g>
+  <text x="176" y="140" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#57534a" letter-spacing="1">QR Code Studio</text>
+
+  <!-- headline (Fraunces approximated with serif for the scraper) -->
+  <text x="80" y="330" font-family="Georgia, 'Times New Roman', serif" font-size="92" font-weight="500" fill="#17160f" letter-spacing="-2">Beautiful QR codes,</text>
+  <text x="80" y="428" font-family="Georgia, 'Times New Roman', serif" font-size="92" font-weight="500" fill="#17160f" letter-spacing="-2">built like <tspan fill="#e5361b" font-style="italic">print.</tspan></text>
+
+  <text x="82" y="512" font-family="'Courier New', monospace" font-size="24" fill="#57534a" letter-spacing="2">LOGOS &#183; GRADIENTS &#183; SVG &#183; FREE &amp; PRIVATE</text>
 </svg>
