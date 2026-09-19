@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://qr-code-studio.pages.dev/sitemap.xml
+Sitemap: https://qr-code-studio-dxj.pages.dev/sitemap.xml

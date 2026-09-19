@@ -3,7 +3,7 @@
 A polished, **fully client-side** QR code generator with logo embedding, colors, gradients, custom styles, and PNG/SVG export.
 No backend, no database, no server bills - it deploys as static files and runs entirely in the visitor's browser.
 
-Live: https://qr-code-studio.pages.dev
+Live: https://qr-code-studio-dxj.pages.dev
 
 ## Why this is genuinely "passive"
 
